@@ -1,0 +1,169 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="ycGGHxNs4av-4wPpWFTY" name="Page-1">
+    <mxGraphModel dx="2038" dy="1081" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1060" math="0" shadow="0" adaptiveColors="auto">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=30;fontStyle=1;fontColor=#14263E;" value="BCA POC | ETL architecture" vertex="1">
+          <mxGeometry height="41" width="1316" x="44" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="airflow" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;align=center;spacingLeft=17;fillColor=#E9EFF6;strokeColor=#B6C6D7;fontColor=#233B56;fontSize=15;" value="&lt;b&gt;Airflow · orchestration&lt;/b&gt;" vertex="1">
+          <mxGeometry height="49" width="1316" x="42" y="104" as="geometry" />
+        </mxCell>
+        <mxCell id="s1" parent="1" style="swimlane;horizontal=1;startSize=42;rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;spacingLeft=16;fillColor=#F2F5F9;swimlaneFillColor=#FFFFFF;strokeColor=#C4D0DE;fontColor=#14263E;fontSize=17;fontStyle=1;" value="01    Investor accounts" vertex="1">
+          <mxGeometry height="125" width="1316" x="42" y="169" as="geometry" />
+        </mxCell>
+        <mxCell id="s1-badge" parent="s1" style="rounded=1;arcSize=45;html=1;fillColor=#E6ECF3;strokeColor=none;fontColor=#334A64;fontStyle=1;fontSize=11;" value="NO PYSPARK" vertex="1">
+          <mxGeometry height="24" width="128" x="1167" y="9" as="geometry" />
+        </mxCell>
+        <mxCell id="s1-input" parent="s1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F4F7FB;strokeColor=#AABCD0;fontColor=#14263E;fontSize=13;" value="&lt;b&gt;Ownership file&lt;/b&gt;&lt;br&gt;MProductOwnership.txt" vertex="1">
+          <mxGeometry height="54" width="223" x="18" y="54" as="geometry" />
+        </mxCell>
+        <mxCell id="s1-python" parent="s1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E5;strokeColor=#CB9C63;fontColor=#382A18;fontSize=13;" value="&lt;b&gt;Python + oracledb&lt;/b&gt;&lt;br&gt;Parse fixed-width, deduplicate, bulk load" vertex="1">
+          <mxGeometry height="54" width="274" x="281" y="54" as="geometry" />
+        </mxCell>
+        <mxCell id="s1-lookup" parent="s1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E5;strokeColor=#CB9C63;fontColor=#382A18;fontSize=13;" value="&lt;b&gt;Oracle SQL&lt;/b&gt;&lt;br&gt;Look up branch and product keys; stage rows" vertex="1">
+          <mxGeometry height="54" width="319" x="595" y="54" as="geometry" />
+        </mxCell>
+        <mxCell id="s1-target" parent="s1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF5EF;strokeColor=#8DAE9B;fontColor=#193A2C;fontSize=13;" value="&lt;b&gt;Oracle investor account dimension&lt;/b&gt;&lt;br&gt;MERGE inserts new or updates changed rows" vertex="1">
+          <mxGeometry height="54" width="344" x="954" y="54" as="geometry" />
+        </mxCell>
+        <mxCell id="s1-e1" edge="1" parent="s1" source="s1-input" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#536D8A;strokeWidth=1.5;labelBackgroundColor=default;defaultLabelBackgroundColor=page;" target="s1-python">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s1-e2" edge="1" parent="s1" source="s1-python" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#536D8A;strokeWidth=1.5;labelBackgroundColor=default;defaultLabelBackgroundColor=page;" target="s1-lookup">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s1-e3" edge="1" parent="s1" source="s1-lookup" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#536D8A;strokeWidth=1.5;labelBackgroundColor=default;defaultLabelBackgroundColor=page;" target="s1-target">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dependency" parent="1" style="text;html=1;align=left;spacingLeft=2;fontColor=#3E5875;fontSize=12;" value="&lt;b&gt;Airflow dependency:&lt;/b&gt; Scenario 2 runs before Scenario 1 so the investor load can look up product keys." vertex="1">
+          <mxGeometry height="24" width="1282" x="59" y="296" as="geometry" />
+        </mxCell>
+        <mxCell id="s2" parent="1" style="swimlane;horizontal=1;startSize=42;rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;spacingLeft=16;fillColor=#F2F5F9;swimlaneFillColor=#FFFFFF;strokeColor=#C4D0DE;fontColor=#14263E;fontSize=17;fontStyle=1;" value="02    Product dimension" vertex="1">
+          <mxGeometry height="125" width="1316" x="42" y="324" as="geometry" />
+        </mxCell>
+        <mxCell id="s2-badge" parent="s2" style="rounded=1;arcSize=45;html=1;fillColor=#DAEAFF;strokeColor=none;fontColor=#154983;fontStyle=1;fontSize=11;" value="USES PYSPARK" vertex="1">
+          <mxGeometry height="24" width="128" x="1167" y="9" as="geometry" />
+        </mxCell>
+        <mxCell id="s2-input" parent="s2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F4F7FB;strokeColor=#AABCD0;fontColor=#14263E;fontSize=13;" value="&lt;b&gt;Two fixed-width files&lt;/b&gt;&lt;br&gt;MProduct + MProductOwnership" vertex="1">
+          <mxGeometry height="54" width="223" x="18" y="54" as="geometry" />
+        </mxCell>
+        <mxCell id="s2-spark" parent="s2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAEAFF;strokeColor=#5285BE;strokeWidth=2;fontColor=#133F72;fontSize=13;" value="&lt;b&gt;PySpark · DataFrames + Spark SQL&lt;/b&gt;&lt;br&gt;Filter by ownership, clean and deduplicate" vertex="1">
+          <mxGeometry height="54" width="274" x="281" y="54" as="geometry" />
+        </mxCell>
+        <mxCell id="s2-jdbc" parent="s2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E5;strokeColor=#CB9C63;fontColor=#382A18;fontSize=13;" value="&lt;b&gt;JDBC · Spark ↔ Oracle&lt;/b&gt;&lt;br&gt;Read currency/product keys; write staging rows" vertex="1">
+          <mxGeometry height="54" width="319" x="595" y="54" as="geometry" />
+        </mxCell>
+        <mxCell id="s2-target" parent="s2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF5EF;strokeColor=#8DAE9B;fontColor=#193A2C;fontSize=13;" value="&lt;b&gt;Oracle product dimension&lt;/b&gt;&lt;br&gt;MERGE inserts new or updates changed products" vertex="1">
+          <mxGeometry height="54" width="344" x="954" y="54" as="geometry" />
+        </mxCell>
+        <mxCell id="s2-e1" edge="1" parent="s2" source="s2-input" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#536D8A;strokeWidth=1.5;labelBackgroundColor=default;defaultLabelBackgroundColor=page;" target="s2-spark">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s2-e2" edge="1" parent="s2" source="s2-spark" style="edgeStyle=orthogonalEdgeStyle;html=1;startArrow=block;endArrow=block;strokeColor=#536D8A;strokeWidth=1.5;labelBackgroundColor=default;defaultLabelBackgroundColor=page;" target="s2-jdbc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s2-e3" edge="1" parent="s2" source="s2-jdbc" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#536D8A;strokeWidth=1.5;labelBackgroundColor=default;defaultLabelBackgroundColor=page;" target="s2-target">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" parent="1" style="swimlane;horizontal=1;startSize=42;rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;spacingLeft=16;fillColor=#F2F5F9;swimlaneFillColor=#FFFFFF;strokeColor=#C4D0DE;fontColor=#14263E;fontSize=17;fontStyle=1;" value="03    OMNI activity logs" vertex="1">
+          <mxGeometry height="325" width="1316" x="42" y="465" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-badge" parent="s3" style="rounded=1;arcSize=45;html=1;fillColor=#DAEAFF;strokeColor=none;fontColor=#154983;fontStyle=1;fontSize=11;" value="PYSPARK OPTIONAL" vertex="1">
+          <mxGeometry height="24" width="154" x="1141" y="9" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-input" parent="s3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F4F7FB;strokeColor=#AABCD0;fontColor=#14263E;fontSize=13;" value="&lt;b&gt;Raw activity log&lt;/b&gt;&lt;br&gt;TBL_ACTIVITY_LOG.avro" vertex="1">
+          <mxGeometry height="57" width="189" x="18" y="143" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-load" parent="s3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E5;strokeColor=#CB9C63;fontColor=#382A18;fontSize=13;" value="&lt;b&gt;Python + fastavro&lt;/b&gt;&lt;br&gt;Batch-load raw rows; no Spark" vertex="1">
+          <mxGeometry height="57" width="216" x="247" y="143" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-oracle-raw" parent="s3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F4F7FB;strokeColor=#AABCD0;fontColor=#14263E;fontSize=13;" value="&lt;b&gt;Oracle raw staging&lt;/b&gt;&lt;br&gt;STG_TBL_ACTIVITY_LOG" vertex="1">
+          <mxGeometry height="59" width="200" x="510" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-hive-raw" parent="s3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F4F7FB;strokeColor=#AABCD0;fontColor=#14263E;fontSize=13;" value="&lt;b&gt;Hive / Impala&lt;/b&gt;&lt;br&gt;Raw activity log staging" vertex="1">
+          <mxGeometry height="59" width="200" x="510" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-sql" parent="s3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E5;strokeColor=#CB9C63;fontColor=#382A18;fontSize=13;" value="&lt;b&gt;Oracle SQL&lt;/b&gt;&lt;br&gt;Transform inside Oracle" vertex="1">
+          <mxGeometry height="59" width="247" x="757" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-spark" parent="s3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAEAFF;strokeColor=#5285BE;strokeWidth=2;fontColor=#133F72;fontSize=13;" value="&lt;b&gt;PySpark variants&lt;/b&gt;&lt;br&gt;Impala → DataFrame API&lt;br&gt;Hive → Spark SQL" vertex="1">
+          <mxGeometry height="68" width="247" x="757" y="142" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-duck" parent="s3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E5;strokeColor=#CB9C63;fontColor=#382A18;fontSize=13;" value="&lt;b&gt;DuckDB SQL&lt;/b&gt;&lt;br&gt;Alternate engine for Impala input" vertex="1">
+          <mxGeometry height="59" width="247" x="757" y="229" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-sql-target" parent="s3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF5EF;strokeColor=#8DAE9B;fontColor=#193A2C;fontSize=13;" value="&lt;b&gt;Oracle STG_OMNI&lt;/b&gt;&lt;br&gt;Copy to Hive final after Oracle transform" vertex="1">
+          <mxGeometry height="59" width="247" x="1051" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-spark-target" parent="s3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF5EF;strokeColor=#8DAE9B;fontColor=#193A2C;fontSize=13;" value="&lt;b&gt;Oracle staging outputs&lt;/b&gt;&lt;br&gt;STG_OMNI_SPARK&lt;br&gt;STG_OMNI_HIVE" vertex="1">
+          <mxGeometry height="68" width="247" x="1051" y="142" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-duck-target" parent="s3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF5EF;strokeColor=#8DAE9B;fontColor=#193A2C;fontSize=13;" value="&lt;b&gt;Oracle target&lt;/b&gt;&lt;br&gt;BCADW.STG_OMNI" vertex="1">
+          <mxGeometry height="59" width="247" x="1051" y="229" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-note" parent="s3" style="text;html=1;align=left;fontSize=12;fontColor=#415772;" value="Transform variants enrich activity records with Oracle dimension lookups. The Hive copy belongs to the Oracle SQL path only." vertex="1">
+          <mxGeometry height="21" width="1273" x="18" y="294" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-e1" edge="1" parent="s3" source="s3-input" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#536D8A;strokeWidth=1.5;labelBackgroundColor=default;defaultLabelBackgroundColor=page;" target="s3-load">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-e2" edge="1" parent="s3" source="s3-load" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#536D8A;strokeWidth=1.5;labelBackgroundColor=default;defaultLabelBackgroundColor=page;" target="s3-oracle-raw">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-e3" edge="1" parent="s3" source="s3-load" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#536D8A;strokeWidth=1.5;labelBackgroundColor=default;defaultLabelBackgroundColor=page;" target="s3-hive-raw">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-e4" edge="1" parent="s3" source="s3-oracle-raw" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#536D8A;strokeWidth=1.5;labelBackgroundColor=default;defaultLabelBackgroundColor=page;" target="s3-sql">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-e5" edge="1" parent="s3" source="s3-hive-raw" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#536D8A;strokeWidth=1.5;labelBackgroundColor=default;defaultLabelBackgroundColor=page;" target="s3-spark">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-e6" edge="1" parent="s3" source="s3-hive-raw" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#536D8A;strokeWidth=1.5;labelBackgroundColor=default;defaultLabelBackgroundColor=page;" target="s3-duck">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-e7" edge="1" parent="s3" source="s3-sql" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#536D8A;strokeWidth=1.5;labelBackgroundColor=default;defaultLabelBackgroundColor=page;" target="s3-sql-target">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-e8" edge="1" parent="s3" source="s3-spark" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#536D8A;strokeWidth=1.5;labelBackgroundColor=default;defaultLabelBackgroundColor=page;" target="s3-spark-target">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-e9" edge="1" parent="s3" source="s3-duck" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#536D8A;strokeWidth=1.5;labelBackgroundColor=default;defaultLabelBackgroundColor=page;" target="s3-duck-target">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s4" parent="1" style="swimlane;horizontal=1;startSize=42;rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;spacingLeft=16;fillColor=#F2F5F9;swimlaneFillColor=#FFFFFF;strokeColor=#C4D0DE;fontColor=#14263E;fontSize=17;fontStyle=1;" value="04    User scripts · job control, not a Spark pipeline" vertex="1">
+          <mxGeometry height="132" width="1316" x="42" y="806" as="geometry" />
+        </mxCell>
+        <mxCell id="s4-badge" parent="s4" style="rounded=1;arcSize=45;html=1;fillColor=#E6ECF3;strokeColor=none;fontColor=#334A64;fontStyle=1;fontSize=11;" value="NO PYSPARK" vertex="1">
+          <mxGeometry height="24" width="128" x="1167" y="9" as="geometry" />
+        </mxCell>
+        <mxCell id="s4-meta" parent="s4" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F4F7FB;strokeColor=#AABCD0;fontColor=#14263E;fontSize=13;" value="&lt;b&gt;Job metadata + SQL files&lt;/b&gt;&lt;br&gt;Configured jobs and statements" vertex="1">
+          <mxGeometry height="60" width="223" x="18" y="54" as="geometry" />
+        </mxCell>
+        <mxCell id="s4-python" parent="s4" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E5;strokeColor=#CB9C63;fontColor=#382A18;fontSize=13;" value="&lt;b&gt;Python session controller&lt;/b&gt;&lt;br&gt;Wait for upstream jobs before proceeding" vertex="1">
+          <mxGeometry height="60" width="274" x="281" y="54" as="geometry" />
+        </mxCell>
+        <mxCell id="s4-stub" parent="s4" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E5;strokeColor=#CB9C63;fontColor=#382A18;fontSize=13;" value="&lt;b&gt;Oracle / Impala SQL step&lt;/b&gt;&lt;br&gt;Execution simulated in checked-in runner" vertex="1">
+          <mxGeometry height="60" width="319" x="595" y="54" as="geometry" />
+        </mxCell>
+        <mxCell id="s4-status" parent="s4" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF5EF;strokeColor=#8DAE9B;fontColor=#193A2C;fontSize=13;" value="&lt;b&gt;Oracle POC_ORCHESTRATION&lt;/b&gt;&lt;br&gt;Write status, timing and reported row counts" vertex="1">
+          <mxGeometry height="60" width="344" x="954" y="54" as="geometry" />
+        </mxCell>
+        <mxCell id="s4-e1" edge="1" parent="s4" source="s4-meta" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;dashed=1;strokeColor=#536D8A;strokeWidth=1.5;labelBackgroundColor=default;defaultLabelBackgroundColor=page;" target="s4-python">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s4-e2" edge="1" parent="s4" source="s4-python" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;dashed=1;strokeColor=#536D8A;strokeWidth=1.5;labelBackgroundColor=default;defaultLabelBackgroundColor=page;" target="s4-stub">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s4-e3" edge="1" parent="s4" source="s4-stub" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;dashed=1;strokeColor=#536D8A;strokeWidth=1.5;labelBackgroundColor=default;defaultLabelBackgroundColor=page;" target="s4-status">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" parent="1" style="text;html=1;align=left;fontSize=12;fontColor=#415772;" value="&lt;b&gt;Read the diagram:&lt;/b&gt; &amp;nbsp; Blue = PySpark / Spark SQL &amp;nbsp; | &amp;nbsp; Amber = non-Spark processing or database access &amp;nbsp; | &amp;nbsp; Green = output &amp;nbsp; | &amp;nbsp; Solid arrows = data flow &amp;nbsp; | &amp;nbsp; Dashed arrows = job control" vertex="1">
+          <mxGeometry height="32" width="1310" x="44" y="948" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
